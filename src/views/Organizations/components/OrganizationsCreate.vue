@@ -1,6 +1,7 @@
 <template>
   <div>
     <configurator
+        title="Add new organization"
         :toggle="toggleConfigurator"
         :class="[
         this.$store.state.showConfig ? 'show' : '',
@@ -8,26 +9,17 @@
       ]"
     >
       <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label">Name</label>
-                <argon-input type="text" value="lucky.jesse"/>
-              </div>
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label">Email</label>
-                <argon-input type="text" value="lucky.jesse"/>
-              </div>
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label">Password</label>
-                <argon-input type="text" value="lucky.jesse"/>
-              </div>
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label">Username</label>
-                <argon-input type="text" value="lucky.jesse"/>
-              </div>
+        <form action="">
+          <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Organization Name</label>
+            <argon-input type="text" name="name"/>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <argon-button :fullWidth="true" color="success" variant="gradient">Save</argon-button>
             </div>
-        </div>
+          </div>
+        </form>
       </div>
     </configurator>
   </div>
@@ -37,9 +29,10 @@
 import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import {mapMutations} from "vuex";
+import ArgonButton from "@/components/ArgonButton.vue";
 
 export default {
-  components: {ArgonInput, Configurator},
+  components: {ArgonButton, ArgonInput, Configurator},
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"])
   },

@@ -2,12 +2,12 @@
   <div class="fixed-plugin">
     <argon-button @click="toggle" color="dark" variant="gradient">
       <i class="fas fa-plus me-2"></i>
-      Add New User
+      {{ title }}
     </argon-button>
     <div class="shadow-lg card">
       <div class="pt-3 pb-0 bg-transparent card-header">
         <div class="float-start">
-          <h5 class="mt-3 mb-0">Add New User</h5>
+          <h5 class="mt-3 mb-0">{{ title }}</h5>
         </div>
         <div
             class="mt-4 float-end"
@@ -34,7 +34,7 @@ import ArgonButton from "@/components/ArgonButton.vue";
 export default {
   name: "configurator",
   components: {ArgonButton},
-  props: ["toggle"],
+  props: ["toggle", "title"],
   methods: {
     ...mapMutations(["navbarMinimize", "sidebarType", "navbarFixed"]),
     sidebarColor(color = "success") {
