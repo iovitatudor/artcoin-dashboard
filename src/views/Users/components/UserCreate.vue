@@ -4,51 +4,70 @@
         title="Add new user"
         :toggle="toggleConfigurator"
         :class="[
-        this.$store.state.showConfig ? 'show' : '',
-        this.$store.state.hideConfigButton ? 'd-none' : ''
+        this.$store.state.config.showConfig ? 'show' : '',
+        this.$store.state.config.hideConfigButton ? 'd-none' : ''
       ]"
     >
       <div class="row">
-        <form action="">
+        <form action="" @submit.prevent="createUser">
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Name</label>
-            <argon-input type="text" name="name"/>
+            <argon-input type="text"
+                         name="name"
+                         :value="form.name"
+                         @input="form.name = $event.target.value"/>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Email</label>
-            <argon-input type="text" name="email"/>
+            <argon-input type="text"
+                         name="email"
+                         :value="form.email"
+                         @input="form.email = $event.target.value"/>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Phone</label>
-            <argon-input type="phone" name="phone"/>
+            <argon-input type="phone"
+                         name="phone"
+                         :value="form.phone"
+                         @input="form.phone = $event.target.value"/>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Gender</label>
-            <div class="row">
-              <div class="col-md-4">
-                <argon-radio name="gender" id="male">male</argon-radio>
-              </div>
-              <div class="col-md-4">
-                <argon-radio name="gender" id="female">female</argon-radio>
-              </div>
-              <div class="col-md-4">
-                <argon-radio name="gender" id="unisex">unisex</argon-radio>
-              </div>
+
+            <div class="form-group">
+              <select class="form-select" aria-label="Default select example" v-model="form.gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="unisex">Unisex</option>
+              </select>
             </div>
           </div>
           <div class="col-md-12">
             <label for="formFile" class="form-control-label">Avatar</label>
             <div class="form-group">
-              <input class="form-control" type="file" id="formFile">
+              <input class="form-control" type="file" @change="uploadFile" ref="file" id="formFile">
             </div>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Password</label>
-            <argon-input type="password" name="password"/>
+            <argon-input type="password"
+                         name="password"
+                         :value="form.password"
+                         @input="form.password = $event.target.value"/>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Password Confirmation</label>
-            <argon-input type="password" name="password-confirmation"/>
+            <argon-input type="password"
+                         name="password-confirmation"
+                         :value="form.passwordConfirmation"
+                         @input="form.passwordConfirmation = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <div class="alert" role="alert">
+              <p class="text-danger" v-for="error in errors" :key="error">
+                <small>{{ error }}</small>
+              </p>
+            </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
@@ -64,14 +83,89 @@
 <script>
 import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
-import ArgonRadio from "@/components/ArgonRadio.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-import {mapMutations} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 
 export default {
-  components: {ArgonInput, ArgonRadio, ArgonButton, Configurator},
+  components: {ArgonInput, ArgonButton, Configurator},
+  data() {
+    return {
+      errors: [],
+      form: {
+        name: null,
+        email: null,
+        phone: null,
+        gender: "male",
+        avatar: null,
+        password: null,
+        passwordConfirmation: null,
+      }
+    }
+  },
   methods: {
-    ...mapMutations(["toggleConfigurator", "navbarMinimize"])
+    ...mapMutations({
+      toggleConfigurator: "config/toggleConfigurator",
+      navbarMinimize: "config/navbarMinimize"
+    }),
+    ...mapActions({
+      addUser: "users/addUser",
+    }),
+    async createUser() {
+      if (this.validateForm()) {
+        const formData = new FormData();
+        for (const filed in this.form) {
+          formData.append(filed, this.form[filed]);
+        }
+        try {
+          await this.addUser(formData, () => {this.resetForm()}, (e) => {this.errors.push(e)});
+        } catch (e) {
+          alert(e);
+        }
+      }
+      return false;
+    },
+    uploadFile() {
+      this.form.avatar = this.$refs.file.files[0];
+    },
+    validateForm() {
+      this.errors = [];
+      const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      const phoneValidRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})?$/;
+      const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+      for (const filed in this.form) {
+        if (this.form[filed] === null || this.form[filed].length < 1) {
+          this.errors.push(`${filed} is required!`);
+          return false;
+        }
+      }
+      if (!this.form.email.match(emailValidRegex)) {
+        this.errors.push(`invalid email address!`);
+        return false;
+      }
+      if (!this.form.phone.match(phoneValidRegex)) {
+        this.errors.push(`invalid phone number!`);
+        return false;
+      }
+      if (!this.form.password.match(passwordValidRegex)) {
+        this.errors.push(`Password must contain Minimum 8 and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
+        return false;
+      }
+      if (this.form.password !== this.form.passwordConfirmation) {
+        this.errors.push(`passwords not match!`);
+        return false;
+      }
+      return true;
+    },
+    resetForm() {
+      this.form.name = null;
+      this.form.email = null;
+      this.form.phone = null;
+      this.form.gender = "male";
+      this.form.avatar = null;
+      this.form.password = null;
+      this.form.passwordConfirmation = null;
+    }
   },
 }
 </script>

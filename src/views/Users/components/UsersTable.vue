@@ -24,27 +24,26 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr v-for="user in users" :key="user.id">
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
-                  <img
-                      src="../../../assets/img/team-2.jpg"
-                      class="avatar avatar-sm me-3"
-                      alt="user1"
+                  <img :src="`${backEndUrl}/${user.avatar}`"
+                       class="avatar avatar-sm me-3"
+                       alt="user1"
                   />
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">John Michael</h6>
-                  <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                  <h6 class="mb-0 text-sm">{{ user.name }}</h6>
+                  <p class="text-xs text-secondary mb-0">{{ user.email }}</p>
                 </div>
               </div>
             </td>
             <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">male</span>
+              <span class="text-secondary text-xs font-weight-bold">{{ user.gender }}</span>
             </td>
             <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
+              <span class="text-secondary text-xs font-weight-bold">{{ user.birthdate ?? '---' }}</span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>
@@ -64,6 +63,7 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
+                  @click.prevent="removeUser(user.id)"
               >Delete</a>
             </td>
           </tr>
@@ -75,10 +75,26 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from "vuex";
 import UserCreate from "@/views/Users/components/UserCreate.vue";
 
 export default {
   name: "users-table",
   components: {UserCreate},
+  data() {
+    return {
+      backEndUrl: process.env.VUE_APP_BACK_END_URL
+    }
+  },
+  computed: {
+    ...mapGetters({
+      users: "users/getUsers",
+    })
+  },
+  methods: {
+    ...mapActions({
+      removeUser: "users/removeUser",
+    }),
+  }
 };
 </script>

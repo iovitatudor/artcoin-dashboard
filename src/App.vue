@@ -1,15 +1,14 @@
 <template>
   <div
-      v-show="this.$store.state.layout === 'landing'"
+      v-show="this.$store.state.config.layout === 'landing'"
       class="landing-bg h-100 bg-gradient-primary position-fixed w-100"
   ></div>
   <sidenav
-      :custom_class="this.$store.state.mcolor"
+      :custom_class="this.$store.state.config.mcolor"
       :class="[
-      this.$store.state.isTransparent,
-      this.$store.state.isRTL ? 'fixed-end' : 'fixed-start'
+      this.$store.state.config.isTransparent,
+      this.$store.state.config.isRTL ? 'fixed-end' : 'fixed-start'
     ]"
-      v-if="this.$store.state.showSidenav"
   />
   <main
       class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
@@ -17,10 +16,10 @@
     <navbar
         :class="[navClasses]"
         :textWhite="
-        this.$store.state.isAbsolute ? 'text-white opacity-8' : 'text-white'
+        this.$store.state.config.isAbsolute ? 'text-white opacity-8' : 'text-white'
       "
         :minNav="navbarMinimize"
-        v-if="this.$store.state.showNavbar"
+        v-if="this.$store.state.config.showNavbar"
     />
     <router-view/>
   </main>
@@ -28,7 +27,7 @@
 <script>
 import Sidenav from "./widgets/Sidenav";
 import Navbar from "@/widgets/Navbars/Navbar.vue";
-import {mapMutations} from "vuex";
+import {mapMutations, mapActions} from "vuex";
 
 export default {
   name: "App",
@@ -37,23 +36,30 @@ export default {
     Navbar,
   },
   methods: {
-    ...mapMutations(["toggleConfigurator", "navbarMinimize"])
+    ...mapMutations(["config/toggleConfigurator", "config/navbarMinimize"]),
+    ...mapActions({
+      fetchUsers: "users/fetchUsers",
+    }),
   },
   computed: {
     navClasses() {
       return {
         "position-sticky bg-white left-auto top-2 z-index-sticky":
-            this.$store.state.isNavFixed && !this.$store.state.darkMode,
+            this.$store.state.config.isNavFixed && !this.$store.state.config.darkMode,
         "position-sticky bg-default left-auto top-2 z-index-sticky":
-            this.$store.state.isNavFixed && this.$store.state.darkMode,
-        "position-absolute px-4 mx-0 w-100 z-index-2": this.$store.state
+            this.$store.state.config.isNavFixed && this.$store.state.config.darkMode,
+        "position-absolute px-4 mx-0 w-100 z-index-2": this.$store.state.config
             .isAbsolute,
-        "px-0 mx-4": !this.$store.state.isAbsolute
+        "px-0 mx-4": !this.$store.state.config.isAbsolute
       };
     }
   },
-  beforeMount() {
-    this.$store.state.isTransparent = "bg-transparent";
-  }
+  async mounted() {
+    await this.fetchUsers();
+  },
+   beforeMount() {
+    this.$store.state.config.isTransparent = "bg-transparent";
+  },
+
 };
 </script>

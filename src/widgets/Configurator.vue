@@ -36,31 +36,31 @@ export default {
   components: {ArgonButton},
   props: ["toggle", "title"],
   methods: {
-    ...mapMutations(["navbarMinimize", "sidebarType", "navbarFixed"]),
+    ...mapMutations(["config/navbarMinimize", "config/sidebarType", "config/navbarFixed"]),
     sidebarColor(color = "success") {
       document.querySelector("#sidenav-main").setAttribute("data-color", color);
-      this.$store.state.mcolor = `card-background-mask-${color}`;
+      this.$store.state.config.mcolor = `card-background-mask-${color}`;
     },
     sidebarType(type) {
-      this.$store.state.sidebarType = type;
+      this.$store.state.config.sidebarType = type;
     },
     setNavbarFixed() {
       if (
           this.$route.name !== "Profile" ||
           this.$route.name !== "All Projects"
       ) {
-        this.$store.state.isNavFixed = !this.$store.state.isNavFixed;
+        this.$store.state.config.isNavFixed = !this.$store.state.config.isNavFixed;
       }
     },
     setDarkMode() {
-      if (this.$store.state.darkMode) {
-        this.$store.state.darkMode = false;
-        this.$store.state.sidebarType = "bg-white";
+      if (this.$store.state.config.darkMode) {
+        this.$store.state.config.darkMode = false;
+        this.$store.state.config.sidebarType = "bg-white";
         deactivateDarkMode();
         return;
       } else {
-        this.$store.state.darkMode = true;
-        this.$store.state.sidebarType = "bg-default";
+        this.$store.state.config.darkMode = true;
+        this.$store.state.config.sidebarType = "bg-default";
         activateDarkMode();
       }
     },
@@ -79,7 +79,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.state.isTransparent = "bg-transparent";
+    this.$store.state.config.isTransparent = "bg-transparent";
     window.addEventListener("resize", this.sidenavTypeOnResize);
     window.addEventListener("load", this.sidenavTypeOnResize);
   }
