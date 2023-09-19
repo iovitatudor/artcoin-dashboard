@@ -53,7 +53,7 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  to="/dashboard/users/edit"
+                  :to="`/dashboard/users/edit/${user.id}`"
               >Edit
               </router-link>
             </td>
@@ -63,8 +63,9 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  @click.prevent="removeUser(user.id)"
-              >Delete</a>
+                  @click.prevent="removeUser(user.id)">
+                Delete
+              </a>
             </td>
           </tr>
           </tbody>

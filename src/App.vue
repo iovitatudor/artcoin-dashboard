@@ -39,6 +39,7 @@ export default {
     ...mapMutations(["config/toggleConfigurator", "config/navbarMinimize"]),
     ...mapActions({
       fetchUsers: "users/fetchUsers",
+      fetchSpecialists: "specialists/fetchSpecialists",
     }),
   },
   computed: {
@@ -56,6 +57,7 @@ export default {
   },
   async mounted() {
     await this.fetchUsers();
+    await this.fetchSpecialists();
   },
    beforeMount() {
     this.$store.state.config.isTransparent = "bg-transparent";

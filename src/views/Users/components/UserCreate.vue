@@ -32,8 +32,14 @@
                          @input="form.phone = $event.target.value"/>
           </div>
           <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Birth date</label>
+            <argon-input type="datetime-local"
+                         name="birthdate"
+                         :value="form.birthdate"
+                         @input="form.birthdate = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Gender</label>
-
             <div class="form-group">
               <select class="form-select" aria-label="Default select example" v-model="form.gender">
                 <option value="male">Male</option>
@@ -84,7 +90,7 @@
 import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-import {mapActions, mapMutations} from "vuex";
+import {mapActions, mapMutations, mapGetters} from "vuex";
 
 export default {
   components: {ArgonInput, ArgonButton, Configurator},
@@ -95,12 +101,30 @@ export default {
         name: null,
         email: null,
         phone: null,
+        birthdate: null,
         gender: "male",
         avatar: null,
         password: null,
         passwordConfirmation: null,
       }
     }
+  },
+  watch: {
+    alert() {
+      if (this.alert.status === 'success') {
+        this.resetForm();
+        this.toggleConfigurator();
+
+      }
+      if (this.alert.status === 'error') {
+        this.errors.push(this.alert.message);
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      alert: 'users/getAlert',
+    })
   },
   methods: {
     ...mapMutations({
@@ -113,14 +137,10 @@ export default {
     async createUser() {
       if (this.validateForm()) {
         const formData = new FormData();
-        for (const filed in this.form) {
-          formData.append(filed, this.form[filed]);
+        for (const field in this.form) {
+          formData.append(field, this.form[field]);
         }
-        try {
-          await this.addUser(formData, () => {this.resetForm()}, (e) => {this.errors.push(e)});
-        } catch (e) {
-          alert(e);
-        }
+        await this.addUser(formData);
       }
       return false;
     },
@@ -133,9 +153,9 @@ export default {
       const phoneValidRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})?$/;
       const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-      for (const filed in this.form) {
-        if (this.form[filed] === null || this.form[filed].length < 1) {
-          this.errors.push(`${filed} is required!`);
+      for (const field in this.form) {
+        if (this.form[field] === null || this.form[field].length < 1) {
+          this.errors.push(`${field} is required!`);
           return false;
         }
       }
@@ -161,6 +181,7 @@ export default {
       this.form.name = null;
       this.form.email = null;
       this.form.phone = null;
+      this.form.birthdate = null;
       this.form.gender = "male";
       this.form.avatar = null;
       this.form.password = null;

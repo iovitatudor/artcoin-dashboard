@@ -17,6 +17,7 @@ export const UsersApi = {
     },
 
     update(id, data) {
+        console.log(id, data);
         const url = `/api/users/${id}`;
         return FormDataApiInstance.patch(url, data);
     },

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="alert text-white font-weight-bold"
+    class="alert text-white font-weight-bold alert-fixed"
     role="alert"
     :class="getClasses(color, dismissible)"
   >
@@ -51,3 +51,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.alert-fixed {
+  position: fixed !important;
+  max-width: 300px;
+  left: 50%;
+  top: 10%;
+  text-align: center;
+}
+</style>

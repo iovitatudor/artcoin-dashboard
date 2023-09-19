@@ -1,14 +1,13 @@
-// import Vue from 'vue';
 import Vuex from 'vuex';
 
-import config from './config';
+import config from '@/store/config';
 import users from "@/store/users";
-
-// Vue.use(Vuex);
+import specialists from "@/store/specialists";
 
 export default new Vuex.Store({
     modules: {
         config,
         users,
+        specialists,
     },
 });

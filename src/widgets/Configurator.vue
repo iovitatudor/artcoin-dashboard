@@ -65,12 +65,12 @@ export default {
       }
     },
     sidenavTypeOnResize() {
-      let white = document.querySelector("#btn-white");
-      if (window.innerWidth < 1200) {
-        white.classList.add("disabled");
-      } else {
-        white.classList.remove("disabled");
-      }
+      // let white = document.querySelector("#btn-white");
+      // if (window.innerWidth < 1200) {
+      //   white.classList.add("disabled");
+      // } else {
+      //   white.classList.remove("disabled");
+      // }
     }
   },
   computed: {

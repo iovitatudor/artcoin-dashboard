@@ -13,6 +13,9 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
               Function
             </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+              Organization
+            </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Status
             </th>
@@ -21,35 +24,38 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr v-for="specialist in specialists" :key="specialist.id">
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
-                  <img
-                      src="../../../assets/img/team-2.jpg"
-                      class="avatar avatar-sm me-3"
-                      alt="user1"
+                  <img :src="`${backEndUrl}/${specialist.avatar}`"
+                       class="avatar avatar-sm me-3"
+                       alt="user1"
                   />
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">John Michael</h6>
-                  <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                  <h6 class="mb-0 text-sm">{{ specialist.name }}</h6>
+                  <p class="text-xs text-secondary mb-0">{{ specialist.email }}</p>
                 </div>
               </div>
             </td>
-            <td>
-              <p class="text-xs font-weight-bold mb-0">Neurologist</p>
-              <p class="text-xs text-secondary mb-0">Health Center</p>
+            <td class="align-middle">
+              <span class="text-secondary text-xs font-weight-bold">{{ specialist.jobPosition }}</span>
+            </td>
+            <td class="align-middle">
+              <span class="text-secondary text-xs font-weight-bold">{{
+                  specialist.organization ? specialist.organization.name : ''
+                }}</span>
             </td>
             <td class="align-middle text-center text-sm">
-              <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+              <span class="badge badge-sm bg-gradient-success">Online</span>
             </td>
             <td class="align-middle">
               <router-link
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  to="/dashboard/specialists/edit"
+                  :to="`/dashboard/specialists/edit/${specialist.id}`"
               >Edit
               </router-link>
             </td>
@@ -59,7 +65,9 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-              >Delete</a>
+                  @click.prevent="removeSpecialist(specialist.id)">
+                Delete
+              </a>
             </td>
           </tr>
           </tbody>
@@ -71,9 +79,27 @@
 
 <script>
 import SpecialistsCreate from "@/views/Specialists/components/SpecialistsCreate.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "specialists-table",
-  components: {SpecialistsCreate},
+  name: "users-table",
+  components: {
+    SpecialistsCreate
+  },
+  data() {
+    return {
+      backEndUrl: process.env.VUE_APP_BACK_END_URL
+    }
+  },
+  computed: {
+    ...mapGetters({
+      specialists: "specialists/getSpecialists",
+    })
+  },
+  methods: {
+    ...mapActions({
+      removeSpecialist: "specialists/removeSpecialist",
+    }),
+  }
 };
 </script>

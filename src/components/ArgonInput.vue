@@ -5,14 +5,15 @@
         <i :class="getIcon(icon)"></i>
       </span>
       <input
-        :type="type"
-        class="form-control"
-        :class="getClasses(size, valid)"
-        :name="name"
-        :id="id"
-        :value="value"
-        :placeholder="placeholder"
-        :isRequired="isRequired"
+          :type="type"
+          class="form-control"
+          :class="getClasses(size, valid)"
+          :name="name"
+          :id="id"
+          :value="value"
+          :placeholder="placeholder"
+          :isRequired="isRequired"
+          autocomplete="new-password"
       />
       <span v-if="iconDir === 'right'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
