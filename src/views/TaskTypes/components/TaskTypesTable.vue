@@ -9,34 +9,26 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task Type</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reward</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Task type</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Reward</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>
-              <div class="d-flex px-2 py-1">
-                <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">Take semi-annual test</h6>
-                </div>
-              </div>
+          <tr v-for="taskType in taskTypes" :key="taskType.id">
+            <td class="align-middle ps-4">
+              <span class="text-secondary text-xs font-weight-bold">{{ taskType.name }}</span>
             </td>
-            <td>
-              <div class="d-flex px-1 py-1">
-                <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">100</h6>
-                </div>
-              </div>
+            <td class="align-middle ps-4">
+              <span class="text-secondary text-xs font-weight-bold">{{ taskType.reward }} SOL</span>
             </td>
             <td class="align-middle">
               <router-link
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  to="/dashboard/task-types/edit"
+                  :to="`/dashboard/task-types/edit/${taskType.id}`"
               >Edit
               </router-link>
             </td>
@@ -46,7 +38,9 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-              >Delete</a>
+                  @click.prevent="removeTaskType(taskType.id)">
+                Delete
+              </a>
             </td>
           </tr>
           </tbody>
@@ -58,9 +52,27 @@
 
 <script>
 import TaskTypesCreate from "@/views/TaskTypes/components/TaskTypesCreate.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "task-type-table",
-  components: {TaskTypesCreate},
+  name: "task-types-table",
+  components: {
+    TaskTypesCreate
+  },
+  data() {
+    return {
+      backEndUrl: process.env.VUE_APP_BACK_END_URL
+    }
+  },
+  computed: {
+    ...mapGetters({
+      taskTypes: "taskTypes/getTaskTypes",
+    })
+  },
+  methods: {
+    ...mapActions({
+      removeTaskType: "taskTypes/removeTaskType",
+    }),
+  }
 };
 </script>

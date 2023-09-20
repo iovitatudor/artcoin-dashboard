@@ -84,7 +84,7 @@
                     </p>
                   </div>
                 </div>
-                <div class="col-md-12 mt-5">
+                <div class="col-md-12 mt-5 d-flex justify-content-center">
                   <div class="form-group">
                     <argon-button :fullWidth="true" color="success" variant="gradient">Save</argon-button>
                   </div>

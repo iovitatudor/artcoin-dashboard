@@ -40,6 +40,8 @@ export default {
     ...mapActions({
       fetchUsers: "users/fetchUsers",
       fetchSpecialists: "specialists/fetchSpecialists",
+      fetchOrganizations: "organizations/fetchOrganizations",
+      fetchTaskTypes: "taskTypes/fetchTaskTypes",
     }),
   },
   computed: {
@@ -58,8 +60,10 @@ export default {
   async mounted() {
     await this.fetchUsers();
     await this.fetchSpecialists();
+    await this.fetchOrganizations();
+    await this.fetchTaskTypes();
   },
-   beforeMount() {
+  beforeMount() {
     this.$store.state.config.isTransparent = "bg-transparent";
   },
 

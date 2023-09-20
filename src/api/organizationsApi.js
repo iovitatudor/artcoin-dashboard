@@ -1,4 +1,4 @@
-import {FormDataApiInstance, DefaultApiInstance} from '@/api';
+import {DefaultApiInstance} from '@/api';
 
 export const OrganizationsApi = {
     getAll() {
@@ -13,12 +13,12 @@ export const OrganizationsApi = {
 
     create(data) {
         const url = `/api/organizations`;
-        return FormDataApiInstance.post(url, data);
+        return DefaultApiInstance.post(url, data);
     },
 
     update(id, data) {
         const url = `/api/organizations/${id}`;
-        return FormDataApiInstance.patch(url, data);
+        return DefaultApiInstance.patch(url, data);
     },
 
     delete(id) {

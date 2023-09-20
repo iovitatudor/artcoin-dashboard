@@ -59,7 +59,7 @@ const routes = [
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/organizations/edit",
+        path: "/dashboard/organizations/edit/:id",
         name: "Edit Organizations",
         component: OrganizationsEdit,
         beforeEnter: AuthGuard,
@@ -71,7 +71,7 @@ const routes = [
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/task-types/edit",
+        path: "/dashboard/task-types/edit/:id",
         name: "Edit Task Type",
         component: TaskTypesEdit,
         beforeEnter: AuthGuard,

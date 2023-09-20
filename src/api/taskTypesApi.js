@@ -1,4 +1,4 @@
-import {FormDataApiInstance, DefaultApiInstance} from '@/api';
+import {DefaultApiInstance} from '@/api';
 
 export const TaskTypesApi = {
     getAll() {
@@ -13,12 +13,12 @@ export const TaskTypesApi = {
 
     create(data) {
         const url = `/api/task-types`;
-        return FormDataApiInstance.post(url, data);
+        return DefaultApiInstance.post(url, data);
     },
 
     update(id, data) {
         const url = `/api/task-types/${id}`;
-        return FormDataApiInstance.patch(url, data);
+        return DefaultApiInstance.patch(url, data);
     },
 
     delete(id) {

@@ -4,15 +4,25 @@
         title="Add new organization"
         :toggle="toggleConfigurator"
         :class="[
-        this.$store.state.showConfig ? 'show' : '',
-        this.$store.state.hideConfigButton ? 'd-none' : ''
+        this.$store.state.config.showConfig ? 'show' : '',
+        this.$store.state.config.hideConfigButton ? 'd-none' : ''
       ]"
     >
       <div class="row">
-        <form action="">
+        <form action="" @submit.prevent="submitForm">
           <div class="col-md-12">
-            <label for="example-text-input" class="form-control-label">Organization Name</label>
-            <argon-input type="text" name="name"/>
+            <label for="example-text-input" class="form-control-label">Name</label>
+            <argon-input type="text"
+                         name="name"
+                         :value="form.name"
+                         @input="form.name = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <div class="alert" role="alert">
+              <p class="text-danger" v-for="error in errors" :key="error">
+                <small>{{ error }}</small>
+              </p>
+            </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
@@ -28,13 +38,67 @@
 <script>
 import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
-import {mapMutations} from "vuex";
 import ArgonButton from "@/components/ArgonButton.vue";
+import {mapActions, mapMutations, mapGetters} from "vuex";
 
 export default {
-  components: {ArgonButton, ArgonInput, Configurator},
+  components: {ArgonInput, ArgonButton, Configurator},
+  data() {
+    return {
+      errors: [],
+      form: {
+        name: null,
+      }
+    }
+  },
+  watch: {
+    alert() {
+      if (this.alert.status === 'success') {
+        this.resetForm();
+        this.toggleConfigurator();
+      }
+      if (this.alert.status === 'error') {
+        this.errors.push(this.alert.message);
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      alert: 'organizations/getAlert',
+    })
+  },
   methods: {
-    ...mapMutations(["toggleConfigurator", "navbarMinimize"])
+    ...mapMutations({
+      toggleConfigurator: "config/toggleConfigurator",
+      navbarMinimize: "config/navbarMinimize"
+    }),
+    ...mapActions({
+      addOrganization: "organizations/addOrganization",
+    }),
+    async submitForm() {
+      if (this.validateForm()) {
+        const formData = new FormData();
+        for (const field in this.form) {
+          formData.append(field, this.form[field]);
+        }
+        await this.addOrganization(formData);
+      }
+      return false;
+    },
+    validateForm() {
+      this.errors = [];
+
+      for (const field in this.form) {
+        if (this.form[field] === null || this.form[field].length < 1) {
+          this.errors.push(`${field} is required!`);
+          return false;
+        }
+      }
+      return true;
+    },
+    resetForm() {
+      this.form.name = null;
+    }
   },
 }
 </script>

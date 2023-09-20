@@ -9,26 +9,22 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Organization</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Organization</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>
-              <div class="d-flex px-2 py-1">
-                <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">Health Center</h6>
-                </div>
-              </div>
+          <tr v-for="organization in organizations" :key="organization.id">
+            <td class="align-middle ps-4">
+              <span class="text-secondary text-xs font-weight-bold">{{ organization.name }}</span>
             </td>
             <td class="align-middle">
               <router-link
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  to="/dashboard/organizations/edit"
+                  :to="`/dashboard/organizations/edit/${organization.id}`"
               >Edit
               </router-link>
             </td>
@@ -38,7 +34,9 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-              >Delete</a>
+                  @click.prevent="removeOrganization(organization.id)">
+                Delete
+              </a>
             </td>
           </tr>
           </tbody>
@@ -50,9 +48,27 @@
 
 <script>
 import OrganizationsCreate from "@/views/Organizations/components/OrganizationsCreate.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "organizations-table",
-  components: {OrganizationsCreate},
+  components: {
+    OrganizationsCreate
+  },
+  data() {
+    return {
+      backEndUrl: process.env.VUE_APP_BACK_END_URL
+    }
+  },
+  computed: {
+    ...mapGetters({
+      organizations: "organizations/getOrganizations",
+    })
+  },
+  methods: {
+    ...mapActions({
+      removeOrganization: "organizations/removeOrganization",
+    }),
+  }
 };
 </script>
