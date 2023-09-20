@@ -25,7 +25,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Sales overview",
+      default: "Trafic overview",
     },
     detail1: {
       type: String,
@@ -33,7 +33,7 @@ export default {
     },
     detail2: {
       type: String,
-      default: "in 2021",
+      default: "in 2023",
     },
   },
 

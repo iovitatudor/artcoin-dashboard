@@ -1,8 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Dashboard from "../views/Dashboard.vue";
-import Tables from "../views/Tables.vue";
-import Billing from "../views/Billing.vue";
-import Profile from "../views/Profile.vue";
+import Dashboard from "../views/Dashboard.vue"
+
 import Signin from "../views/Signin.vue";
 import AuthGuard from "@/guards/AuthGuard";
 import GuestGuard from "@/guards/GuestGuard";
@@ -74,24 +72,6 @@ const routes = [
         path: "/dashboard/task-types/edit/:id",
         name: "Edit Task Type",
         component: TaskTypesEdit,
-        beforeEnter: AuthGuard,
-    },
-    {
-        path: "/dashboard/tables",
-        name: "Tables",
-        component: Tables,
-        beforeEnter: AuthGuard,
-    },
-    {
-        path: "/dashboard/billing",
-        name: "Billing",
-        component: Billing,
-        beforeEnter: AuthGuard,
-    },
-    {
-        path: "/dashboard/profile",
-        name: "Profile",
-        component: Profile,
         beforeEnter: AuthGuard,
     },
 ];

@@ -5,33 +5,33 @@
         <div class="row">
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              :title="stats.money.title"
-              :value="stats.money.value"
+              title="Users"
+              :value="`${users.length}`"
               :percentage="stats.money.percentage"
-              :iconClass="stats.money.iconClass"
-              :iconBackground="stats.money.iconBackground"
+              iconClass="ni ni-circle-08"
+              iconBackground="bg-gradient-success"
               :detail="stats.money.detail"
               directionReverse
             ></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              :title="stats.users.title"
-              :value="stats.users.value"
+              title="Specialists"
+              :value="`${specialists.length}`"
               :percentage="stats.users.percentage"
-              :iconClass="stats.users.iconClass"
-              :iconBackground="stats.users.iconBackground"
+              iconClass="ni ni-badge"
+              iconBackground="bg-gradient-info"
               :detail="stats.users.detail"
               directionReverse
             ></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              :title="stats.clients.title"
-              :value="stats.clients.value"
+              title="Organizations"
+              :value="`${organizations.length}`"
               :percentage="stats.clients.percentage"
-              :iconClass="stats.clients.iconClass"
-              :iconBackground="stats.clients.iconBackground"
+              iconClass="ni ni-building"
+              iconBackground="bg-gradient-warning"
               :percentageColor="stats.clients.percentageColor"
               :detail="stats.clients.detail"
               directionReverse
@@ -39,76 +39,22 @@
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              :title="stats.sales.title"
-              :value="stats.sales.value"
+              title="Task Types"
+              :value="`${taskTypes.length}`"
               :percentage="stats.sales.percentage"
-              :iconClass="stats.sales.iconClass"
-              :iconBackground="stats.sales.iconBackground"
+              iconClass="ni ni-archive-2"
+              iconBackground="bg-gradient-danger"
               :detail="stats.sales.detail"
               directionReverse
             ></card>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-7 mb-lg">
+          <div class="col-lg-12 mb-lg">
             <!-- line chart -->
             <div class="card z-index-2">
               <gradient-line-chart />
             </div>
-          </div>
-          <div class="col-lg-5">
-            <carousel />
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-lg-7 mb-lg-0 mb-4">
-            <div class="card">
-              <div class="p-3 pb-0 card-header">
-                <div class="d-flex justify-content-between">
-                  <h6 class="mb-2">Sales by Country</h6>
-                </div>
-              </div>
-              <div class="table-responsive">
-                <table class="table align-items-center">
-                  <tbody>
-                    <tr v-for="(sale, index) in sales" :key="index">
-                      <td class="w-30">
-                        <div class="px-2 py-1 d-flex align-items-center">
-                          <div>
-                            <img :src="sale.flag" alt="Country flag" />
-                          </div>
-                          <div class="ms-4">
-                            <p class="mb-0 text-xs font-weight-bold">Country:</p>
-                            <h6 class="mb-0 text-sm">{{ sale.country }}</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-weight-bold">Sales:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.sales }}</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-weight-bold">Value:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.value }}</h6>
-                        </div>
-                      </td>
-                      <td class="text-sm align-middle">
-                        <div class="text-center col">
-                          <p class="mb-0 text-xs font-weight-bold">Bounce:</p>
-                          <h6 class="mb-0 text-sm">{{ sale.bounce }}</h6>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <categories-card />
           </div>
         </div>
       </div>
@@ -116,10 +62,9 @@
   </div>
 </template>
 <script>
+import {mapGetters} from "vuex";
 import Card from "@/widgets/Cards/Card.vue";
 import GradientLineChart from "@/widgets/Charts/GradientLineChart.vue";
-import Carousel from "./components/Carousel.vue";
-import CategoriesCard from "./components/CategoriesCard.vue";
 
 import US from "@/assets/img/icons/flags/US.png";
 import DE from "@/assets/img/icons/flags/DE.png";
@@ -128,6 +73,14 @@ import BR from "@/assets/img/icons/flags/BR.png";
 
 export default {
   name: "dashboard-default",
+  computed: {
+    ...mapGetters({
+      users: "users/getUsers",
+      specialists: "specialists/getSpecialists",
+      organizations: "organizations/getOrganizations",
+      taskTypes: "taskTypes/getTaskTypes",
+    })
+  },
   data() {
     return {
       stats: {
@@ -200,8 +153,6 @@ export default {
   components: {
     Card,
     GradientLineChart,
-    Carousel,
-    CategoriesCard,
   },
 };
 </script>
