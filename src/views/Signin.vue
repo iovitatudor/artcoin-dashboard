@@ -54,16 +54,14 @@
             >
               <div
                   class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                  style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-          background-size: cover;"
-              >
+                  style="background-image: url('https://nft.blockaids.world/images/OBJECTS.png');background-size: cover;">
                 <span class="mask bg-gradient-success opacity-6"></span>
-                <h4
-                    class="mt-5 text-white font-weight-bolder position-relative"
-                >"Attention is the new currency"</h4>
-                <p
-                    class="text-white position-relative"
-                >The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">
+                  BlockAIDS
+                </h4>
+                <p class="text-white position-relative">
+                  A decentralized electronic ecosystem on the blockchain
+                </p>
               </div>
             </div>
           </div>
@@ -98,22 +96,21 @@ export default {
     ArgonButton,
   },
   created() {
-    this.$store.state.hideConfigButton = true;
-    this.$store.state.showNavbar = false;
-    this.$store.state.showSidenav = false;
-    this.$store.state.showFooter = false;
+    this.$store.state.config.hideConfigButton = true;
+    this.$store.state.config.showNavbar = false;
+    this.$store.state.config.showSidenav = false;
+    this.$store.state.config.showFooter = false;
     body.classList.remove("bg-gray-100");
   },
   beforeUnmount() {
-    this.$store.state.hideConfigButton = false;
-    this.$store.state.showNavbar = true;
-    this.$store.state.showSidenav = true;
-    this.$store.state.showFooter = true;
+    this.$store.state.config.hideConfigButton = false;
+    this.$store.state.config.showNavbar = true;
+    this.$store.state.config.showSidenav = true;
+    this.$store.state.config.showFooter = true;
     body.classList.add("bg-gray-100");
   },
   methods: {
     singIn() {
-      console.log(this.form.email, this.credentials.email)
       if (this.form.email !== this.credentials.email) {
         alert('email error');
         return;
@@ -122,9 +119,18 @@ export default {
         alert('password error');
         return;
       }
-      localStorage.setItem('auth', '1');
+      this.setWithExpiry('auth', '1', 10800000)
       return this.$router.push('dashboard');
+    },
+    setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const item = {
+        value: value,
+        expiry: now.getTime() + ttl,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
     }
   }
-};
+}
+;
 </script>

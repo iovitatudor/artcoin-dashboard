@@ -1,5 +1,7 @@
+import getWithExpiry from "./getAuthFunction";
+
 const GuestGuard = function (to, from, next) {
-  const hasAuth = localStorage.getItem('auth');
+  const hasAuth = getWithExpiry('auth');
   if (hasAuth) next({name: 'Dashboard'});
   else next();
 };

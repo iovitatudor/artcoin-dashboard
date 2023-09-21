@@ -9,6 +9,7 @@
       this.$store.state.config.isTransparent,
       this.$store.state.config.isRTL ? 'fixed-end' : 'fixed-start'
     ]"
+      v-if="this.$store.state.config.showSidenav"
   />
   <main
       class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"

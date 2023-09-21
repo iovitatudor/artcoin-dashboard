@@ -35,9 +35,9 @@
             <label for="example-text-input" class="form-control-label">Organization</label>
             <div class="form-group">
               <select class="form-select" aria-label="Default select example" v-model="form.organizationId">
-                <option value="5">Health center</option>
-                <option value="6">Health center 1</option>
-                <option value="7">Health center 2</option>
+                <option :value="organization.id" v-for="organization in organizations" :key="organization.id">
+                  {{ organization.name }}
+                </option>
               </select>
             </div>
           </div>
@@ -80,10 +80,10 @@
 </template>
 
 <script>
+import {mapActions, mapMutations, mapGetters} from "vuex";
 import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
-import {mapActions, mapMutations, mapGetters} from "vuex";
 
 export default {
   components: {ArgonInput, ArgonButton, Configurator},
@@ -94,7 +94,7 @@ export default {
         name: null,
         email: null,
         job_position: null,
-        organizationId: 5,
+        organizationId: null,
         avatar: null,
         password: null,
         passwordConfirmation: null,
@@ -111,12 +111,25 @@ export default {
       if (this.alert.status === 'error') {
         this.errors.push(this.alert.message);
       }
+    },
+    organizations() {
+      if (this.organizations.length) {
+        const organizations = JSON.parse(JSON.stringify(this.organizations))
+        this.form.organizationId = organizations[0].id
+      }
     }
   },
   computed: {
     ...mapGetters({
       alert: 'specialists/getAlert',
+      organizations: 'organizations/getOrganizations',
     })
+  },
+  mounted() {
+    if (this.organizations.length) {
+      const organizations = JSON.parse(JSON.stringify(this.organizations))
+      this.form.organizationId = organizations[0].id
+    }
   },
   methods: {
     ...mapMutations({

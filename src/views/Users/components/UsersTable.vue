@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Users table</h6>
+      <h6>Users table ({{ users.length }})</h6>
       <user-create/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
@@ -9,6 +9,7 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Gender
@@ -24,7 +25,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="(user, index) in users" :key="user.id">
+            <td>
+              <div class="px-3 py-1">
+                {{ index + 1 }}
+              </div>
+            </td>
             <td>
               <div class="d-flex px-2 py-1">
                 <div>

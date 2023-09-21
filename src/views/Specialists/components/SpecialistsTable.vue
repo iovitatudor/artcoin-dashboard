@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Specialists table</h6>
+      <h6>Specialists table ({{ specialists.length }})</h6>
       <specialists-create/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
@@ -9,6 +9,7 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Specialist</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
               Function
@@ -24,7 +25,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="specialist in specialists" :key="specialist.id">
+          <tr v-for="(specialist, index) in specialists" :key="specialist.id">
+            <td>
+              <div class="px-3 py-1">
+                {{ index + 1 }}
+              </div>
+            </td>
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
@@ -43,9 +49,9 @@
               <span class="text-secondary text-xs font-weight-bold">{{ specialist.jobPosition }}</span>
             </td>
             <td class="align-middle">
-              <span class="text-secondary text-xs font-weight-bold">{{
-                  specialist.organization ? specialist.organization.name : ''
-                }}</span>
+              <span class="text-secondary text-xs font-weight-bold">
+                {{ specialist.organization ? specialist.organization.name : '' }}
+              </span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>

@@ -6,7 +6,7 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <p class="mb-0">Edit Profile</p>
-              <!--              <argon-button color="success" size="sm" class="ms-auto">Save</argon-button>-->
+              <!--<argon-button color="success" size="sm" class="ms-auto">Save</argon-button>-->
             </div>
           </div>
           <div class="card-body">
@@ -44,9 +44,9 @@
                       <div class="form-group">
                         <select class="form-select" aria-label="Default select example"
                                 v-model="this.form.organizationId">
-                          <option value="5">Health Center</option>
-                          <option value="6">Health Center 1</option>
-                          <option value="7">Health Center 2</option>
+                          <option :value="organization.id" v-for="organization in organizations" :key="organization.id">
+                            {{ organization.name }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -124,7 +124,7 @@ export default {
         name: null,
         email: null,
         job_position: null,
-        organizationId: 5,
+        organizationId: 0,
         avatar: null,
         password: null,
         passwordConfirmation: null,
@@ -140,15 +140,26 @@ export default {
       if (this.alert.status === 'error') {
         this.errors.push(this.alert.message);
       }
-    }
+    },
+    organizations() {
+      if (this.organizations.length) {
+        const organizations = JSON.parse(JSON.stringify(this.organizations))
+        this.form.organizationId = organizations[0].id
+      }
+    },
   },
   computed: {
     ...mapGetters({
       alert: 'specialists/getAlert',
+      organizations: 'organizations/getOrganizations',
     })
   },
   mounted() {
     this.initData();
+    if (this.organizations.length) {
+      const organizations = JSON.parse(JSON.stringify(this.organizations))
+      this.form.organizationId = organizations[0].id
+    }
   },
   methods: {
     ...mapActions({

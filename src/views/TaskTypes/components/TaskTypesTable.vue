@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Task Types table</h6>
+      <h6>Task Types table ({{ taskTypes.length }})</h6>
       <task-types-create/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
@@ -9,6 +9,7 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Task type</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Reward</th>
             <th class="text-secondary opacity-7"></th>
@@ -16,9 +17,14 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="taskType in taskTypes" :key="taskType.id">
+          <tr v-for="(taskType, index) in taskTypes" :key="taskType.id">
+            <td>
+              <div class="px-3 py-1">
+                {{ index + 1 }}
+              </div>
+            </td>
             <td class="align-middle ps-4">
-              <span class="text-secondary text-xs font-weight-bold">{{ taskType.name }}</span>
+              <span class="text-secondary text-sm">{{ taskType.name }}</span>
             </td>
             <td class="align-middle ps-4">
               <span class="text-secondary text-xs font-weight-bold">{{ taskType.reward }} SOL</span>
@@ -51,8 +57,8 @@
 </template>
 
 <script>
-import TaskTypesCreate from "@/views/TaskTypes/components/TaskTypesCreate.vue";
 import {mapActions, mapGetters} from "vuex";
+import TaskTypesCreate from "@/views/TaskTypes/components/TaskTypesCreate.vue";
 
 export default {
   name: "task-types-table",

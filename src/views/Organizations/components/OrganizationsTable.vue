@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Organizations table</h6>
+      <h6>Organizations table({{ organizations.length }})</h6>
       <organizations-create/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
@@ -9,15 +9,21 @@
         <table class="table align-items-center mb-0">
           <thead>
           <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Organization</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="organization in organizations" :key="organization.id">
+          <tr v-for="(organization, index) in organizations" :key="organization.id">
+            <td>
+              <div class="px-3 py-1">
+                {{ index + 1 }}
+              </div>
+            </td>
             <td class="align-middle ps-4">
-              <span class="text-secondary text-xs font-weight-bold">{{ organization.name }}</span>
+              <b class="text-secondary text-xs">{{ organization.name }}</b>
             </td>
             <td class="align-middle">
               <router-link

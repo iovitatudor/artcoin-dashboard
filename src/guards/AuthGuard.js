@@ -1,14 +1,17 @@
+import getWithExpiry from "./getAuthFunction";
+
 const AuthGuard = async function (to, from, next) {
-  const isAuth = localStorage.getItem('auth')
+  const isAuth = getWithExpiry('auth')
   try {
     if (!isAuth) {
-      next({name: '/'})
+      return next({name: 'Signin'})
     } else {
-      next();
+     return next();
     }
   } catch (err) {
-    next({name: '/'})
+    return next({name: 'Signin'})
   }
 };
+
 
 export default AuthGuard;

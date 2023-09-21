@@ -4,23 +4,25 @@
       <i class="fas fa-plus me-2"></i>
       {{ title }}
     </argon-button>
-    <div class="shadow-lg card">
-      <div class="pt-3 pb-0 bg-transparent card-header">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">{{ title }}</h5>
+    <div class="block-wrapper" @click.self="toggle">
+      <div class="shadow-lg card">
+        <div class="pt-3 pb-0 bg-transparent card-header">
+          <div class="float-start">
+            <h5 class="mt-3 mb-0">{{ title }}</h5>
+          </div>
+          <div
+              class="mt-4 float-end"
+              @click="toggle"
+          >
+            <button class="p-0 btn btn-link text-dark fixed-plugin-close-button">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>
         </div>
-        <div
-            class="mt-4 float-end"
-            @click="toggle"
-        >
-          <button class="p-0 btn btn-link text-dark fixed-plugin-close-button">
-            <i class="fa fa-close"></i>
-          </button>
+        <hr class="my-1 horizontal dark"/>
+        <div class="pt-0 card-body pt-sm-3">
+          <slot></slot>
         </div>
-      </div>
-      <hr class="my-1 horizontal dark"/>
-      <div class="pt-0 card-body pt-sm-3">
-        <slot></slot>
       </div>
     </div>
   </div>
@@ -85,3 +87,16 @@ export default {
   }
 };
 </script>
+
+<style>
+.show .block-wrapper {
+  border: 1px solid red;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>
