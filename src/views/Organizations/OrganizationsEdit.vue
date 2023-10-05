@@ -17,12 +17,47 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="row mt-1">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label for="example-text-input" class="form-control-label">Name</label>
                       <argon-input type="text"
                                    name="name"
                                    :value="this.organization.name"
                                    @input="form.name = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">Email</label>
+                      <argon-input type="email"
+                                   name="email"
+                                   :value="this.organization.email"
+                                   @input="form.email = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">Phone</label>
+                      <argon-input type="tel"
+                                   name="phone"
+                                   :value="this.organization.phone"
+                                   @input="form.phone = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">Country</label>
+                      <argon-input type="text"
+                                   name="country"
+                                   :value="this.organization.country"
+                                   @input="form.country = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">City</label>
+                      <argon-input type="text"
+                                   name="city"
+                                   :value="this.organization.city"
+                                   @input="form.city = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">Address</label>
+                      <argon-input type="text"
+                                   name="address"
+                                   :value="this.organization.address"
+                                   @input="form.address = $event.target.value"/>
                     </div>
                   </div>
                 </div>
@@ -69,6 +104,11 @@ export default {
       organization: null,
       form: {
         name: null,
+        email: null,
+        phone: null,
+        country: null,
+        city: null,
+        address: null,
       }
     };
   },

@@ -11,6 +11,9 @@
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Organization</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Email</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Phone</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Address</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>
           </tr>
@@ -24,6 +27,15 @@
             </td>
             <td class="align-middle ps-4">
               <b class="text-secondary text-xs">{{ organization.name }}</b>
+            </td>
+            <td class="align-middle ps-4">
+              <b class="text-secondary text-xs">{{ organization.email }}</b>
+            </td>
+            <td class="align-middle ps-4">
+              <b class="text-secondary text-xs">{{ organization.phone }}</b>
+            </td>
+            <td class="align-middle ps-4">
+              <b class="text-secondary text-xs">{{ organization.address }}</b>
             </td>
             <td class="align-middle">
               <router-link

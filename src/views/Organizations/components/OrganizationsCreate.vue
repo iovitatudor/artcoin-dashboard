@@ -18,6 +18,41 @@
                          @input="form.name = $event.target.value"/>
           </div>
           <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Email</label>
+            <argon-input type="email"
+                         name="email"
+                         :value="form.email"
+                         @input="form.email = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Phone</label>
+            <argon-input type="tel"
+                         name="phone"
+                         :value="form.phone"
+                         @input="form.phone = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Country</label>
+            <argon-input type="text"
+                         name="country"
+                         :value="form.country"
+                         @input="form.country = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">City</label>
+            <argon-input type="text"
+                         name="city"
+                         :value="form.city"
+                         @input="form.city = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
+            <label for="example-text-input" class="form-control-label">Address</label>
+            <argon-input type="text"
+                         name="address"
+                         :value="form.address"
+                         @input="form.address = $event.target.value"/>
+          </div>
+          <div class="col-md-12">
             <div class="alert" role="alert">
               <p class="text-danger" v-for="error in errors" :key="error">
                 <small>{{ error }}</small>
@@ -48,6 +83,11 @@ export default {
       errors: [],
       form: {
         name: null,
+        email: null,
+        phone: null,
+        country: null,
+        city: null,
+        address: null,
       }
     }
   },
