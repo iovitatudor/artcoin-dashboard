@@ -105,6 +105,7 @@ export default {
     },
     resetForm() {
       this.form.name = null;
+      this.form.reward = null;
     }
   },
 }

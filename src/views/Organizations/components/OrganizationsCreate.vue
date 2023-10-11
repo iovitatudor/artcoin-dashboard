@@ -138,6 +138,11 @@ export default {
     },
     resetForm() {
       this.form.name = null;
+      this.form.email = null;
+      this.form.phone = null;
+      this.form.country = null;
+      this.form.city = null;
+      this.form.address = null;
     }
   },
 }
