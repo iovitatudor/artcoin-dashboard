@@ -125,7 +125,7 @@ export default {
   data() {
     return {
       backEndUrl: process.env.VUE_APP_BACK_END_URL,
-      page: 1,
+      page: 2,
     }
   },
   computed: {

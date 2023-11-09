@@ -15,12 +15,12 @@ import TaskTypesEdit from "@/views/TaskTypes/TaskTypesEdit.vue";
 import OrganizationsEdit from "@/views/Organizations/OrganizationsEdit.vue";
 
 const routes = [
-    // {
-    //     path: "/create-users",
-    //     name: "CreateUsers",
-    //     component: CreateUsers,
-    //     beforeEnter: AuthGuard,
-    // },
+    {
+        path: "/create-users",
+        name: "CreateUsers",
+        component: CreateUsers,
+        beforeEnter: AuthGuard,
+    },
     {
         path: "/",
         name: "Signin",
