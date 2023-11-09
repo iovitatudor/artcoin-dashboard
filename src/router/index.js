@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import Dashboard from "../views/Dashboard.vue"
 
 import Signin from "../views/Signin.vue";
+import CreateUsers from "../views/CreateUsers.vue";
 import AuthGuard from "@/guards/AuthGuard";
 import GuestGuard from "@/guards/GuestGuard";
 import Users from "@/views/Users/Users.vue";
@@ -14,6 +15,12 @@ import TaskTypesEdit from "@/views/TaskTypes/TaskTypesEdit.vue";
 import OrganizationsEdit from "@/views/Organizations/OrganizationsEdit.vue";
 
 const routes = [
+    // {
+    //     path: "/create-users",
+    //     name: "CreateUsers",
+    //     component: CreateUsers,
+    //     beforeEnter: AuthGuard,
+    // },
     {
         path: "/",
         name: "Signin",

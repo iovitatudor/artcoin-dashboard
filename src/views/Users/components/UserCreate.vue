@@ -150,7 +150,7 @@ export default {
     validateForm() {
       this.errors = [];
       const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      const phoneValidRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})?$/;
+      // const phoneValidRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})?$/;
       const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
       for (const field in this.form) {
@@ -163,10 +163,10 @@ export default {
         this.errors.push(`invalid email address!`);
         return false;
       }
-      if (!this.form.phone.match(phoneValidRegex)) {
-        this.errors.push(`invalid phone number!`);
-        return false;
-      }
+      // if (!this.form.phone.match(phoneValidRegex)) {
+      //   this.errors.push(`invalid phone number!`);
+      //   return false;
+      // }
       if (!this.form.password.match(passwordValidRegex)) {
         this.errors.push(`Password must contain Minimum 8 and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
         return false;

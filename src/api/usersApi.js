@@ -1,8 +1,8 @@
 import {FormDataApiInstance, DefaultApiInstance} from '@/api';
 
 export const UsersApi = {
-    getAll() {
-        const url = `/api/users`;
+    getAll(page = 1) {
+        const url = `/api/users?page=${page}`;
         return DefaultApiInstance.get(url);
     },
 
@@ -14,6 +14,11 @@ export const UsersApi = {
     create(data) {
         const url = `/api/users`;
         return FormDataApiInstance.post(url, data);
+    },
+
+    addPublicKey(data) {
+        const url = `/api/users/public-key`;
+        return DefaultApiInstance.post(url, data);
     },
 
     update(id, data) {

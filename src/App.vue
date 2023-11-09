@@ -59,7 +59,7 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchUsers();
+    await this.fetchUsers({page: 1});
     await this.fetchSpecialists();
     await this.fetchOrganizations();
     await this.fetchTaskTypes();

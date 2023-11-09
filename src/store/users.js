@@ -15,7 +15,7 @@ export default {
     },
     mutations: {
         setUsers(state, users) {
-            state.users = users;
+            state.users = state.users.concat(users);
         },
         setAlert(state, alert) {
             state.alert = alert;
@@ -41,9 +41,9 @@ export default {
                 console.error(e);
             }
         },
-        async fetchUsers({commit}) {
+        async fetchUsers({commit}, data) {
             try {
-                const response = await UsersApi.getAll();
+                const response = await UsersApi.getAll(data.page);
                 return commit('setUsers', response.data);
             } catch (e) {
                 console.error(e);
