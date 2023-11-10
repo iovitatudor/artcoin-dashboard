@@ -154,8 +154,8 @@ export default {
       organizations: 'organizations/getOrganizations',
     })
   },
-  mounted() {
-    this.initData();
+  async mounted() {
+    await this.initData();
     if (this.organizations.length) {
       const organizations = JSON.parse(JSON.stringify(this.organizations))
       this.form.organizationId = organizations[0].id
@@ -169,12 +169,13 @@ export default {
     async initData() {
       const id = this.$route.params.id;
       const response = await this.fetchSpecialistById(id);
-      this.specialist = response.data;
-      this.form.name = this.specialist.name;
-      this.form.organizationId = this.specialist.organization.id;
-      this.form.email = this.specialist.email;
-      this.form.job_position = this.specialist.jobPosition;
-      this.form.avatar = this.specialist.avatar;
+      this.specialist = JSON.parse(JSON.stringify(response.data));
+      this.form.email = await this.specialist.email;
+      this.form.name = await this.specialist.name;
+      this.form.job_position = await this.specialist.jobPosition;
+      this.form.avatar = await this.specialist.avatar;
+      this.form.organizationId = await this.specialist.organizationId;
+
     },
     async submitForm() {
       if (this.validateForm()) {
@@ -193,8 +194,10 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      // const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      // const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+      console.log(this.form);
 
       for (const field in this.form) {
         if (this.form[field] === null || this.form[field].length < 1) {
@@ -206,21 +209,21 @@ export default {
           }
         }
       }
-      if (!this.form.email.match(emailValidRegex)) {
-        this.errors.push(`invalid email address!`);
-        return false;
-      }
-
-      if (this.form.password) {
-        if (!this.form.password.match(passwordValidRegex)) {
-          this.errors.push(`Password must contain Minimum 8 and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
-          return false;
-        }
-        if (this.form.password !== this.form.passwordConfirmation) {
-          this.errors.push(`passwords not match!`);
-          return false;
-        }
-      }
+      // if (!this.form.email.match(emailValidRegex)) {
+      //   this.errors.push(`invalid email address!`);
+      //   return false;
+      // }
+      //
+      // if (this.form.password) {
+      //   if (!this.form.password.match(passwordValidRegex)) {
+      //     this.errors.push(`Password must contain Minimum 8 and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
+      //     return false;
+      //   }
+      //   if (this.form.password !== this.form.passwordConfirmation) {
+      //     this.errors.push(`passwords not match!`);
+      //     return false;
+      //   }
+      // }
       return true;
     },
     resetForm() {

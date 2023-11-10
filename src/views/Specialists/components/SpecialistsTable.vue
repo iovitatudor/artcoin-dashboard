@@ -50,7 +50,7 @@
             </td>
             <td class="align-middle">
               <span class="text-secondary text-xs font-weight-bold">
-                {{ specialist.organization ? specialist.organization.name : '' }}
+                {{ specialist.organizationId ? (findOrganization(specialist.organizationId)).name : '' }}
               </span>
             </td>
             <td class="align-middle text-center text-sm">
@@ -100,12 +100,20 @@ export default {
   computed: {
     ...mapGetters({
       specialists: "specialists/getSpecialists",
+      organizations: "organizations/getOrganizations",
     })
   },
   methods: {
     ...mapActions({
       removeSpecialist: "specialists/removeSpecialist",
     }),
+    findOrganization(organizationId) {
+      return this.organizations.find((organization) => {
+        if (organization.id === organizationId) {
+          return organization.name;
+        }
+      });
+    }
   }
 };
 </script>
