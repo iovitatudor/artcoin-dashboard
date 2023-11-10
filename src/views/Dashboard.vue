@@ -6,7 +6,7 @@
           <div class="col-lg-3 col-md-6 col-12">
             <card
               title="Users"
-              :value="`${users.length}`"
+              value="5003"
               :percentage="stats.money.percentage"
               iconClass="ni ni-circle-08"
               iconBackground="bg-gradient-success"
