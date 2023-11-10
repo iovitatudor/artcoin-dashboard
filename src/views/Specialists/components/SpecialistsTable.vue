@@ -35,7 +35,7 @@
               <div class="d-flex px-2 py-1">
                 <div>
                   <img :src="`${backEndUrl}/${specialist.avatar}`"
-                       class="avatar avatar-sm me-3"
+                       class="avatar avatar-md"
                        alt="user1"
                   />
                 </div>
@@ -117,3 +117,11 @@ export default {
   }
 };
 </script>
+
+<style>
+.avatar-md {
+  height: 58px !important;
+  width: auto !important;
+  border-radius: 50% !important;
+}
+</style>
