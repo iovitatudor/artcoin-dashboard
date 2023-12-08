@@ -53,14 +53,14 @@
                 class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column"
             >
               <div
-                  class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                  style="background-image: url('https://nft.blockaids.world/images/OBJECTS.png');background-size: cover;">
+                  class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
+                <img src="../assets/img/artcoin.svg" alt="" height="400">
                 <span class="mask bg-gradient-success opacity-6"></span>
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">
-                  BlockAIDS
+                  Artcoin
                 </h4>
                 <p class="text-white position-relative">
-                  A decentralized electronic ecosystem on the blockchain
+                  A bridge for Institutions and their communities to sharing
                 </p>
               </div>
             </div>

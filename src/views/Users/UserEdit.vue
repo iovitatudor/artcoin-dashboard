@@ -6,7 +6,6 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <p class="mb-0">Edit Profile</p>
-<!--              <argon-button color="success" size="sm" class="ms-auto">Save</argon-button>-->
             </div>
           </div>
           <div class="card-body">
@@ -38,25 +37,6 @@
                                    name="phone"
                                    :value="this.user.phone"
                                    @input="form.phone = $event.target.value"/>
-                    </div>
-                  </div>
-                  <div class="row mt-1">
-                    <div class="col-md-6">
-                      <label for="example-text-input" class="form-control-label">Gender</label>
-                      <div class="form-group">
-                        <select class="form-select" aria-label="Default select example" v-model="this.form.gender">
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="unisex">Unisex</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="example-text-input" class="form-control-label">Birth date</label>
-                      <argon-input type="datetime-local"
-                                   name="birthdate"
-                                   :value="getDateTime(this.user.birthdate)"
-                                   @input="form.birthdate = $event.target.value"/>
                     </div>
                   </div>
                   <div class="row  mt-5">
@@ -130,8 +110,6 @@ export default {
         name: null,
         email: null,
         phone: null,
-        birthdate: null,
-        gender: "male",
         avatar: null,
         password: null,
         passwordConfirmation: null,
@@ -168,9 +146,6 @@ export default {
       this.user = response.data;
       this.form.name = this.user.name;
       this.form.email = this.user.email;
-      this.form.phone = this.user.phone;
-      this.form.birthdate = this.user.birthdate;
-      this.form.gender = this.user.gender;
       this.form.avatar = this.user.avatar;
     },
     async submitForm() {
@@ -191,7 +166,6 @@ export default {
     validateForm() {
       this.errors = [];
       const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      const phoneValidRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})?$/;
       const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
       for (const field in this.form) {
@@ -206,10 +180,6 @@ export default {
       }
       if (!this.form.email.match(emailValidRegex)) {
         this.errors.push(`invalid email address!`);
-        return false;
-      }
-      if (!this.form.phone.match(phoneValidRegex)) {
-        this.errors.push(`invalid phone number!`);
         return false;
       }
       if (this.form.password) {

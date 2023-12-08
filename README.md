@@ -1,7 +1,7 @@
-# [BlockAIDS Dashboard](http://demos.creative-tim.com/vue-argon-dashboard/?ref=readme-vad)
+# [Artcoin Dashboard]
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/iovitatudor/blockAIDS-dashboard/main/public/Logo.png" />
+  <img src="https://raw.githubusercontent.com/iovitatudor/blockAIDS-dashboard/main/public/logo.png" />
 </p>
 An Innovative Admin Panel for Bootstrap 5 and VueJS 3. If you like the look & feel of the hottest design trend right now, you will fall in love with this dashboard! It features a huge number of components built to fit together and look amazing.
 

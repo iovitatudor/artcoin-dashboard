@@ -30,9 +30,9 @@
 
       <li class="nav-item">
         <sidenav-item
-            url="/dashboard/specialists"
-            :class="getRoute() === 'specialists' ? 'active' : ''"
-            :navText="'Specialists'"
+            url="/dashboard/sellers"
+            :class="getRoute() === 'sellers' ? 'active' : ''"
+            :navText="'Sellers'"
         >
           <template v-slot:icon>
             <i class="ni ni-badge text-info text-sm opacity-10"></i>
@@ -42,9 +42,9 @@
 
       <li class="nav-item">
         <sidenav-item
-            url="/dashboard/organizations"
-            :class="getRoute() === 'organizations' ? 'active' : ''"
-            :navText="'Organizations'"
+            url="/dashboard/categories"
+            :class="getRoute() === 'categories' ? 'active' : ''"
+            :navText="'Categories'"
         >
           <template v-slot:icon>
             <i class="ni ni-building text-warning text-sm opacity-10"></i>
@@ -54,9 +54,9 @@
 
       <li class="nav-item">
         <sidenav-item
-            url="/dashboard/task-types"
-            :class="getRoute() === 'task-types' ? 'active' : ''"
-            :navText="'Task Types'"
+            url="/dashboard/products-services"
+            :class="getRoute() === 'products' ? 'active' : ''"
+            :navText="'Products/Services'"
         >
           <template v-slot:icon>
             <i class="ni ni-archive-2 text-danger text-sm opacity-10"></i>

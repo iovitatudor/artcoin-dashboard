@@ -1,8 +1,8 @@
 import {FormDataApiInstance, DefaultApiInstance} from '@/api';
 
 export const UsersApi = {
-    getAll(page = 1) {
-        const url = `/api/users?page=${page}`;
+    getAll() {
+        const url = `/api/users`;
         return DefaultApiInstance.get(url);
     },
 

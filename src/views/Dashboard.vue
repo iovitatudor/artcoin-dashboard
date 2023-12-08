@@ -6,7 +6,7 @@
           <div class="col-lg-3 col-md-6 col-12">
             <card
               title="Users"
-              value="5003"
+              :value="`${users.length}`"
               :percentage="stats.money.percentage"
               iconClass="ni ni-circle-08"
               iconBackground="bg-gradient-success"
@@ -16,8 +16,8 @@
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              title="Specialists"
-              :value="`${specialists.length}`"
+              title="Sellers"
+              :value="`${sellers.length}`"
               :percentage="stats.users.percentage"
               iconClass="ni ni-badge"
               iconBackground="bg-gradient-info"
@@ -27,7 +27,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              title="Organizations"
+              title="Categories"
               :value="`${organizations.length}`"
               :percentage="stats.clients.percentage"
               iconClass="ni ni-building"
@@ -39,7 +39,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              title="Task Types"
+              title="Products/Services"
               :value="`${taskTypes.length}`"
               :percentage="stats.sales.percentage"
               iconClass="ni ni-archive-2"
@@ -74,9 +74,12 @@ import BR from "@/assets/img/icons/flags/BR.png";
 export default {
   name: "dashboard-default",
   computed: {
+    sellers() {
+      return this.sellers
+    },
     ...mapGetters({
       users: "users/getUsers",
-      specialists: "specialists/getSpecialists",
+      sellers: "sellers/getSellers",
       organizations: "organizations/getOrganizations",
       taskTypes: "taskTypes/getTaskTypes",
     })

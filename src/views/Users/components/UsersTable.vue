@@ -11,21 +11,11 @@
           <tr>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Email
             </th>
             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Phone
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              Gender
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              Birth Date
-            </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              Age
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Status
@@ -57,27 +47,15 @@
                 </div>
                 <div class="d-flex flex-column justify-content-center">
                   <h6 class="mb-0 text-sm">{{ user.name }}</h6>
-                  <!--<p class="text-xs text-secondary mb-0">{{ user.email }}</p>-->
                 </div>
               </div>
             </td>
-            <td class="align-middle text-left">
-              <span class="text-secondary text-xs font-weight-bold">{{ user.public_key }}</span>
-            </td>
+
             <td class="align-middle text-left">
               <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
             </td>
             <td class="align-middle text-left">
               <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>
-            </td>
-            <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">{{ user.gender }}</span>
-            </td>
-            <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">{{ user.birthdate ?? '---' }}</span>
-            </td>
-            <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">{{ getAge(user.birthdate) }} years</span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>
@@ -104,11 +82,6 @@
           </tr>
           </tbody>
         </table>
-        <div class="text-center">
-          <argon-button @click="loadMore" color="dark" variant="gradient">
-            Load more...
-          </argon-button>
-        </div>
       </div>
     </div>
   </div>
@@ -117,15 +90,13 @@
 <script>
 import {mapGetters, mapActions} from "vuex";
 import UserCreate from "@/views/Users/components/UserCreate.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
 
 export default {
   name: "users-table",
-  components: {ArgonButton, UserCreate},
+  components: {UserCreate},
   data() {
     return {
       backEndUrl: process.env.VUE_APP_BACK_END_URL,
-      page: 2,
     }
   },
   computed: {
@@ -138,17 +109,6 @@ export default {
       removeUser: "users/removeUser",
       fetchUsers: "users/fetchUsers",
     }),
-    async loadMore() {
-      await this.fetchUsers({page: this.page++});
-    },
-    getAge(date) {
-      const today = new Date();
-      const birthdate = new Date(date);
-      const age = today.getFullYear() - birthdate.getFullYear() -
-          (today.getMonth() < birthdate.getMonth() ||
-              (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate()));
-      return age;
-    }
   }
 };
 </script>

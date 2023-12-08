@@ -24,12 +24,13 @@
           aria-hidden="true"
           id="iconSidenav"
       ></i>
-      <router-link class="m-0 navbar-brand" to="/">
+      <router-link class="m-0 navbar-brand logo" to="/">
         <img
-            src="/Logo.png"
+            src="/logo.svg"
             class="navbar-brand-img h-100"
             alt="main_logo"
         />
+        ARTCOIN
       </router-link>
     </div>
     <hr class="mt-0 horizontal dark"/>
@@ -55,3 +56,18 @@ export default {
   props: ["custom_class", "layout"]
 };
 </script>
+
+<style lang="scss">
+.logo {
+  display: flex !important;
+  align-items: center;
+  justify-content: center !important;
+  text-align: center !important;
+  font-size: 25px !important;
+  color: #DD1A33 !important;
+
+  img {
+    margin-right: 15px;
+  }
+}
+</style>

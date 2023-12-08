@@ -5,7 +5,7 @@
         <argon-alert v-if="alertVisible">
           {{ alert.message }}
         </argon-alert>
-        <specialists-table/>
+        <sellers-table/>
       </div>
     </div>
   </div>
@@ -13,14 +13,14 @@
 
 <script>
 import {mapGetters} from "vuex";
-import SpecialistsTable from "@/views/Specialists/components/SpecialistsTable.vue";
+import SellersTable from "@/views/Sellers/components/SellersTable.vue";
 import ArgonAlert from "@/components/ArgonAlert.vue";
 
 export default {
   name: "specialists",
   components: {
     ArgonAlert,
-    SpecialistsTable
+    SellersTable
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      alert: 'specialists/getAlert',
+      alert: 'sellers/getAlert',
     })
   }
 };

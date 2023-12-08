@@ -5,11 +5,11 @@ import Signin from "../views/Signin.vue";
 import AuthGuard from "@/guards/AuthGuard";
 import GuestGuard from "@/guards/GuestGuard";
 import Users from "@/views/Users/Users.vue";
-import Specialists from "@/views/Specialists/Specialists.vue";
+import Sellers from "@/views/Sellers/Sellers.vue";
 import Organizations from "@/views/Organizations/Organizations.vue";
 import TaskTypes from "@/views/TaskTypes/TaskTypes.vue";
 import UserEdit from "@/views/Users/UserEdit.vue";
-import SpecialistsEdit from "@/views/Specialists/SpecialistsEdit.vue";
+import SellersEdit from "@/views/Sellers/SellersEdit.vue";
 import TaskTypesEdit from "@/views/TaskTypes/TaskTypesEdit.vue";
 import OrganizationsEdit from "@/views/Organizations/OrganizationsEdit.vue";
 
@@ -39,15 +39,15 @@ const routes = [
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/specialists",
+        path: "/dashboard/sellers",
         name: "Specialists",
-        component: Specialists,
+        component: Sellers,
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/specialists/edit/:id",
+        path: "/dashboard/sellers/edit/:id",
         name: "Edit Specialist",
-        component: SpecialistsEdit,
+        component: SellersEdit,
         beforeEnter: AuthGuard,
     },
     {

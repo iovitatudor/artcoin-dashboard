@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Specialists table ({{ specialists.length }})</h6>
-      <specialists-create/>
+      <h6>Sellers ({{ sellers.length }})</h6>
+      <sellers-create/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
       <div class="table-responsive p-0">
@@ -10,13 +10,8 @@
           <thead>
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Specialist</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-              Function
-            </th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-              Organization
-            </th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Status
             </th>
@@ -25,7 +20,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(specialist, index) in specialists" :key="specialist.id">
+          <tr v-for="(seller, index) in sellers" :key="seller.id">
             <td>
               <div class="px-3 py-1">
                 {{ index + 1 }}
@@ -34,24 +29,20 @@
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
-                  <img :src="`${backEndUrl}/${specialist.avatar}`"
+                  <img :src="`${backEndUrl}/${seller.avatar}`"
                        class="avatar avatar-md"
                        alt="user1"
                   />
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                  <h6 class="mb-0 text-sm">{{ specialist.name }}</h6>
-                  <p class="text-xs text-secondary mb-0">{{ specialist.email }}</p>
+                  <h6 class="mb-0 text-sm">{{ seller.name }}</h6>
+
                 </div>
               </div>
             </td>
             <td class="align-middle">
-              <span class="text-secondary text-xs font-weight-bold">{{ specialist.jobPosition }}</span>
-            </td>
-            <td class="align-middle">
-              <span class="text-secondary text-xs font-weight-bold">
-                {{ specialist.organizationId ? (findOrganization(specialist.organizationId)).name : '' }}
-              </span>
+              <span class="text-secondary text-xs font-weight-bold"> <p
+                  class="text-xs text-secondary mb-0">{{ seller.email }}</p></span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>
@@ -61,7 +52,7 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  :to="`/dashboard/specialists/edit/${specialist.id}`"
+                  :to="`/dashboard/sellers/edit/${seller.id}`"
               >Edit
               </router-link>
             </td>
@@ -71,7 +62,7 @@
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  @click.prevent="removeSpecialist(specialist.id)">
+                  @click.prevent="removeSeller(seller.id)">
                 Delete
               </a>
             </td>
@@ -84,13 +75,13 @@
 </template>
 
 <script>
-import SpecialistsCreate from "@/views/Specialists/components/SpecialistsCreate.vue";
+import sellersCreate from "@/views/Sellers/components/SellersCreate.vue";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "users-table",
   components: {
-    SpecialistsCreate
+    sellersCreate
   },
   data() {
     return {
@@ -99,21 +90,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      specialists: "specialists/getSpecialists",
-      organizations: "organizations/getOrganizations",
+      sellers: "sellers/getSellers",
     })
   },
   methods: {
     ...mapActions({
-      removeSpecialist: "specialists/removeSpecialist",
+      removeSeller: "sellers/removeSeller",
     }),
-    findOrganization(organizationId) {
-      return this.organizations.find((organization) => {
-        if (organization.id === organizationId) {
-          return organization.name;
-        }
-      });
-    }
   }
 };
 </script>

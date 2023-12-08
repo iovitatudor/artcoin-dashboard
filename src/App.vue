@@ -40,7 +40,7 @@ export default {
     ...mapMutations(["config/toggleConfigurator", "config/navbarMinimize"]),
     ...mapActions({
       fetchUsers: "users/fetchUsers",
-      fetchSpecialists: "specialists/fetchSpecialists",
+      fetchSellers: "sellers/fetchSellers",
       fetchOrganizations: "organizations/fetchOrganizations",
       fetchTaskTypes: "taskTypes/fetchTaskTypes",
     }),
@@ -59,10 +59,10 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchUsers({page: 1});
-    await this.fetchSpecialists();
-    await this.fetchOrganizations();
-    await this.fetchTaskTypes();
+    await this.fetchUsers();
+    await this.fetchSellers();
+    // await this.fetchOrganizations();
+    // await this.fetchTaskTypes();
   },
   beforeMount() {
     this.$store.state.config.isTransparent = "bg-transparent";

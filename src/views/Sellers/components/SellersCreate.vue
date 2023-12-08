@@ -1,7 +1,7 @@
 <template>
   <div>
     <configurator
-        title="Add new specialist"
+        title="Add new Seller"
         :toggle="toggleConfigurator"
         :class="[
         this.$store.state.config.showConfig ? 'show' : '',
@@ -23,23 +23,6 @@
                          name="email"
                          :value="form.email"
                          @input="form.email = $event.target.value"/>
-          </div>
-          <div class="col-md-12">
-            <label for="example-text-input" class="form-control-label">Function</label>
-            <argon-input type="text"
-                         name="function"
-                         :value="form.job_position"
-                         @input="form.job_position = $event.target.value"/>
-          </div>
-          <div class="col-md-12">
-            <label for="example-text-input" class="form-control-label">Organization</label>
-            <div class="form-group">
-              <select class="form-select" aria-label="Default select example" v-model="form.organizationId">
-                <option :value="organization.id" v-for="organization in organizations" :key="organization.id">
-                  {{ organization.name }}
-                </option>
-              </select>
-            </div>
           </div>
           <div class="col-md-12">
             <label for="formFile" class="form-control-label">Avatar</label>
@@ -93,8 +76,6 @@ export default {
       form: {
         name: null,
         email: null,
-        job_position: null,
-        organizationId: null,
         avatar: null,
         password: null,
         passwordConfirmation: null,
@@ -121,15 +102,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      alert: 'specialists/getAlert',
-      organizations: 'organizations/getOrganizations',
+      alert: 'sellers/getAlert',
     })
-  },
-  mounted() {
-    if (this.organizations.length) {
-      const organizations = JSON.parse(JSON.stringify(this.organizations))
-      this.form.organizationId = organizations[0].id
-    }
   },
   methods: {
     ...mapMutations({
@@ -137,7 +111,7 @@ export default {
       navbarMinimize: "config/navbarMinimize"
     }),
     ...mapActions({
-      addSpecialist: "specialists/addSpecialist",
+      addSpecialist: "sellers/addSeller",
     }),
     async createUser() {
       if (this.validateForm()) {
@@ -180,8 +154,6 @@ export default {
     resetForm() {
       this.form.name = null;
       this.form.email = null;
-      this.form.function = null;
-      this.form.organization = 1;
       this.form.avatar = null;
       this.form.password = null;
       this.form.passwordConfirmation = null;
